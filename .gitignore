@@ -1,0 +1,41 @@
+# 编译产物
+*.o
+*.obj
+*.exe
+*.out
+*.a
+*.so
+*.dylib
+*.dll
+
+# 调试符号文件
+*.dSYM/
+*.su
+*.idb
+*.pdb
+
+# 预编译头文件
+*.gch
+*.pch
+
+# 构建目录
+build/
+dist/
+bin/
+out/
+Debug/
+Release/
+x64/
+x86/
+
+# 项目文件
+*.sln
+*.vcxproj*
+*.vcproj
+*.cbproj
+*.dev
+
+# IDE配置
+.idea/
+.vscode/
+
