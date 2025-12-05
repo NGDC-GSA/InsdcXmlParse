@@ -58,14 +58,14 @@ void sample_diff_compare(const table_t *table, const char *file_name, const char
 
     FILE *file_hd = fopen(diff_name, "wb");
     cache_t *cache = stream_cache_init(file_name, start_tag, end_tag);
-    table_t *md5_table = lookup_table_init(8);
+    table_t *cache_table = lookup_table_init(8);
 
     char time_buf[32];
     uint32_t n_total_item = 0;
     fprintf(stderr, "[%s] start to compare the difference ...\n", get_current_time(time_buf));
 
     while (stream_cache_data(cache) >= 0) {
-        table_memory_resize(md5_table, cache->size);
+        table_memory_resize(cache_table, cache->size);
 
         /* calculate the md5 value in parallel with openmp */
         #pragma omp parallel for shared(cache, table)
@@ -74,14 +74,14 @@ void sample_diff_compare(const table_t *table, const char *file_name, const char
             body_t *body = &cache->item_list[i];
 
             md5_calculate_block((uint8_t *)body->start, body->size, md5_str);
-            lookup_table_add(md5_table, i, md5_str);  /* Note: the flag value is ignored */
+            lookup_table_add(cache_table, i, md5_str);  /* Note: the flag value is ignored */
         }
 
         /* get the different data body by comparing sample database */
         for (int i=0; i < cache->size; i++) {
             body_t *body = &cache->item_list[i];
             uint8_t *raw_md5 = lookup_table_query(table, body->id);
-            uint8_t *cur_md5 = lookup_table_query(md5_table, i);
+            uint8_t *cur_md5 = lookup_table_query(cache_table, i);
 
             if (table->flags[body->id] == 0) {  /* the item is new added */
                 table->flags[body->id] = 3;
