@@ -156,16 +156,3 @@ int stream_cache_data(cache_t *cache)
     cache->size = 0;
     return stream_cache_parse(cache);
 }
-
-
-table_t *lookup_table_init(const uint32_t max_size)
-{
-    table_t *table;
-    err_calloc(table, 1, table_t);
-
-    table->capacity = max_size << 4;  /* 16 uint8_t for one MD5 */
-    err_calloc(table->flags, table->capacity>>4, uint8_t);
-    err_calloc(table->values, table->capacity, uint8_t);
-
-    return table;
-}
