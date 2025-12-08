@@ -16,9 +16,6 @@
 /* the buffer_size of the cache (128MB) */
 #define BUFFER_SIZE 134217728
 
-/* the maximum ID (usually more bigger) for the table */
-#define TABLE_SIZE 60000000
-
 
 /*! @typedef buffer_t
   @abstract the buffer for xml stream
@@ -69,21 +66,6 @@ typedef struct {
 } cache_t;
 
 
-/*! @typedef table_t
-  @abstract the table used to store the MD5 value for given ID
-  @field  size              the number of md5 values in the table
-  @field  capacity          the memory allocated for the table
-  @field  flags             the status after compare (0:empty, 1:delete, 2:constant, 3:add, 4:modify)
-  @field  values            the value list used to store the MD5 (16 uint8_t for one MD5)
- */
-typedef struct {
-    uint32_t size;
-    uint32_t capacity;
-    uint8_t *flags;
-    uint8_t *values;
-} table_t;
-
-
 /*! @function: initiation of stream cache
   @param  filename           the filename of the XML file
   @param  start_tag          the start tag in the XML to catch
@@ -105,35 +87,6 @@ void stream_cache_destroy(cache_t * cache);
   @return                    status of caching (-1: end of the stream)
  */
 int stream_cache_data(cache_t *cache);
-
-
-/*! @function: initiation of lookup table
-  @param  max_size           the maximum number of items for the table to store
-  @return                    table object
- */
-table_t *lookup_table_init(uint32_t max_size);
-
-
-/*! @function: get the address of the MD5 value for given index
-  @param  _table             the pointer to the table object
-  @param  _index             the index to store the MD5 value (only 16 bytes could be use)
-  @param  _value             the MD5 value to store
-  @return
- */
-#define lookup_table_add(_table, _index, _value) do {   \
-    uint8_t *dest = (_table)->values + (_index<<4);     \
-    memcpy(dest, _value, 16 * sizeof(unsigned char));   \
-    (_table)->flags[_index] = 1;                        \
-} while(0)
-
-
-/*! @function: get the address of the MD5 value for given index
-  @param  _table             the pointer to the table object
-  @param  _index             the index to store the MD5 value (only 16 bytes could be use)
-  @param  _value             the MD5 value to store
-  @return
- */
-#define lookup_table_query(_table, _index) ((_table)->values + (_index<<4))
 
 
 #endif //INSDCXMLPARSER_STREAM_READER_H
