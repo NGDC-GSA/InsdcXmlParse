@@ -170,11 +170,11 @@ Is a normal XML file
 Performance
 ============
 1. Build database with biosample of 20251130 (about 129GB)
+* Total time consumed: 228 seconds
+* Memory foot print: about 1.7GB
 ```shell
 ./xml_parser build -f ../../sample/20251130/biosample_set.xml -e 20251130 -t SAMPLE -d biosample.db
 
-# Total time consumed: 228 seconds
-# Memory foot print: about 1.7GB
 [2025-12-9 8:5:4] start to build the database ...
 [*] parse number of items: 50069339
 [*] database version: SAMPLE (20251130)
@@ -182,11 +182,12 @@ Performance
 ```
 
 2. Compare the difference with biosample of 20251205 (about 129GB)
+* Total time consumed: 235 seconds
+* Memory foot print: about 1.7GB
+
 ```shell
 ./xml_parser sample -f ../../sample/20251205/biosample_set.xml -e 20251205 -d biosample.db -o 20251130-20251205/
 
-# Total time consumed: 235 seconds
-# Memory foot print: about 1.7GB
 [2025-12-9 8:11:14] start to load the database ...
 [*] database version: SAMPLE (20251130)
 [2025-12-9 8:11:14] done!
