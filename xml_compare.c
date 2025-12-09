@@ -22,6 +22,7 @@ void xml_compare_core(database_t *database, char *xml_name, char *diff_name, cha
     char time_buf[32];
     uint32_t n_total_item = 0;
     fprintf(stderr, "[%s] start to compare the difference ...\n", get_current_time(time_buf));
+    fputs("<DiffXmlSet>\n", file_hd);  /* add root start tag */
 
     while (stream_cache_data(cache) >= 0) {
         database_resize(cache_db, cache->size);
@@ -64,6 +65,8 @@ void xml_compare_core(database_t *database, char *xml_name, char *diff_name, cha
         n_total_item += cache->size;
         fprintf(stderr, "\r[*] compare number of items: %d", n_total_item);
     }
+
+    fputs("</DiffXmlSet>\n", file_hd);  /* add root close tag */
     fclose(file_hd);
     fprintf(stderr, "\n[%s] done!\n", get_current_time(time_buf));
 }
