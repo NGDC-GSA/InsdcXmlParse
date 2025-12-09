@@ -16,7 +16,7 @@ DEPENDENCE:<br>
 
 Description
 =========================
-* InsdcXmlParser is designed to detect differences between two XML files and output both the XML segments that different details. </br>
+* InsdcXmlParser is an efficient tool to detect differences between two XML files and output both the XML segments that different details. </br>
 * The software provides three core functions: </br>
 1. build (for constructing the database. </br>
 2. sample (for analyzing differences between sample XML file and the database) </br>
@@ -128,7 +128,7 @@ Example
 ## 1. build the database
 ```shell
 # run the build module
-$ /xml_parser build -f test/sample_set.xml -e 20251130 -t SAMPLE -d test/sample.db
+$ ./xml_parser build -f test/sample_set.xml -e 20251130 -t SAMPLE -d test/sample.db
 
 # output information
 [2025-12-9 9:52:12] start to build the database ...
@@ -165,4 +165,32 @@ ADD     66666
 
 2. sample_diff.xml (only CHANGE and ADD will be output)
 Is a normal XML file
+```
+
+Performance
+============
+1. Build database with biosample of 20251130 (about 129GB)
+```shell
+./xml_parser build -f ../../sample/20251130/biosample_set.xml -e 20251130 -t SAMPLE -d biosample.db
+
+# Total time consumed: 228 seconds
+# Memory foot print: about 1.7GB
+[2025-12-9 8:5:4] start to build the database ...
+[*] parse number of items: 50069339
+[*] database version: SAMPLE (20251130)
+[2025-12-9 8:8:52] done!
+```
+
+2. Compare the difference with biosample of 20251205 (about 129GB)
+```shell
+./xml_parser sample -f ../../sample/20251205/biosample_set.xml -e 20251205 -d biosample.db -o 20251130-20251205/
+
+# Total time consumed: 235 seconds
+# Memory foot print: about 1.7GB
+[2025-12-9 8:11:14] start to load the database ...
+[*] database version: SAMPLE (20251130)
+[2025-12-9 8:11:14] done!
+[2025-12-9 8:11:14] start to compare the difference ...
+[*] compare number of items: 50245012
+[2025-12-9 8:15:9] done!
 ```
