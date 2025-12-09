@@ -16,11 +16,11 @@ DEPENDENCE:<br>
 
 Description
 =========================
-* InsdcXmlParser is an efficient tool to detect differences between two XML files and output both the XML segments that different details. </br>
+* InsdcXmlParser is an efficient tool to detect differences between two XML files and output the XML segments that different. </br>
 * The software provides three core functions: </br>
-1. build (for constructing the database. </br>
+1. build (for constructing the database </br>
 2. sample (for analyzing differences between sample XML file and the database) </br>
-3. project (for analyzing differences between project XML file and the database). </br>
+3. project (for analyzing differences between project XML file and the database) </br>
 
 
 
@@ -171,7 +171,7 @@ Performance
 ============
 1. Build database with biosample of 20251130 (about 129GB)
 * Total time consumed: 228 seconds
-* Memory foot print: about 1.7GB
+* Memory footprint: about 1.7GB
 ```shell
 ./xml_parser build -f ../../sample/20251130/biosample_set.xml -e 20251130 -t SAMPLE -d biosample.db
 
@@ -183,7 +183,7 @@ Performance
 
 2. Compare the difference with biosample of 20251205 (about 129GB)
 * Total time consumed: 235 seconds
-* Memory foot print: about 1.7GB
+* Memory footprint: about 1.7GB
 
 ```shell
 ./xml_parser sample -f ../../sample/20251205/biosample_set.xml -e 20251205 -d biosample.db -o 20251130-20251205/
