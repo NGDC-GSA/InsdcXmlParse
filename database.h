@@ -12,14 +12,14 @@
 #include "params.h"
 
 /* the maximum ID (usually more bigger) for the sample table */
-#define SAMPLE_TABLE_SIZE 60000000
+#define SAMPLE_TABLE_SIZE 200000000
 
 /* the start and end tag for biosample */
 #define SAMPLE_START_TAG "<BioSample "
 #define SAMPLE_END_TAG "</BioSample>"
 
 /* the maximum ID (usually more bigger) for the project table */
-#define PROJECT_TABLE_SIZE 2000000
+#define PROJECT_TABLE_SIZE 5000000
 
 /* the start and end tag for bioproject */
 #define PROJECT_START_TAG "<Package>"
